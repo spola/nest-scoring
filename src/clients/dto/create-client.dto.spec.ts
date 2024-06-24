@@ -113,7 +113,17 @@ describe('Clients DTO', () => {
       let d = plainToInstance(CreateClientDto, dtoPlain);
 
       expect(d).toBeDefined();
-console.info(d);
+
+      let errores = await validate(d);
+      expect(errores).toHaveLength(1);
+    });
+
+    it('be invalid debts', async () => {
+      dtoPlain.debts = [{ invalid: true }];
+      let d = plainToInstance(CreateClientDto, dtoPlain);
+
+      expect(d).toBeDefined();
+
       let errores = await validate(d);
       expect(errores).toHaveLength(1);
     });
