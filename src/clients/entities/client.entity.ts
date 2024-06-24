@@ -9,6 +9,7 @@ import {
   VersionColumn,
 } from 'typeorm';
 import { MessageEntity } from './message.entity';
+import { DebtEntity } from './debt.entity';
 
 @Entity('clients')
 export class ClientEntity {
@@ -43,4 +44,9 @@ export class ClientEntity {
     cascade: true,
   })
   messages: MessageEntity[];
+
+  @OneToMany((type) => DebtEntity, (message) => message.client, {
+    cascade: true,
+  })
+  debts: DebtEntity[];
 }

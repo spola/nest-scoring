@@ -11,20 +11,20 @@ import {
 } from 'typeorm';
 import { ClientEntity } from './client.entity';
 
-@Entity('messages')
-export class MessageEntity {
+@Entity('debts')
+export class DebtEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column({ type: 'text', nullable: false })
-  text: string;
+  @Column({ type: 'nvarchar', length: '100', nullable: false })
+  institution: string;
+
+  @Column({ type: 'int', nullable: false })
+  amount: number;
 
   @Column({ type: 'datetime', nullable: false })
-  sentAt: Date;
-
-  @Column({ type: 'nvarchar', length: '10', nullable: false })
-  role: string;
-
+  dueDate: Date;
+  
   @CreateDateColumn()
   createdAt: Date;
 
