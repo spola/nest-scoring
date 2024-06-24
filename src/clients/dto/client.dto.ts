@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { MessageDto } from './message.dto';
+import { DebtDto } from './debt.dto';
 
 export class ClientDto {
   @ApiProperty({
@@ -47,4 +48,12 @@ export class ClientDto {
     type: MessageDto,
   })
   messages: MessageDto[];
+
+  @ApiProperty({
+    required: false,
+    description: 'Deudas registradas por el cliente',
+    isArray: true,
+    type: DebtDto,
+  })
+  debts: DebtDto[];
 }

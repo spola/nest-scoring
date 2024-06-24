@@ -1,6 +1,8 @@
 import { ClientEntity } from '../entities/client.entity';
+import { DebtEntity } from '../entities/debt.entity';
 import { MessageEntity } from '../entities/message.entity';
 import { ClientDto } from './client.dto';
+import { DebtDto } from './debt.dto';
 import { MessageDto } from './message.dto';
 
 export const transformClientEntityToDto = (
@@ -15,6 +17,7 @@ export const transformClientEntityToDto = (
     dto.savings = entity.savings;
 
     dto.messages = entity.messages?.map(m=>transformMessageEntityToDto(m));
+    dto.debts = entity.debts?.map(d=>transformDebtEntityToDto(d));
 
     return dto;
 };
@@ -27,6 +30,18 @@ export const transformMessageEntityToDto = (
     dto.text = entity.text;
     dto.role = entity.role;
     dto.sentAt = entity.sentAt;
+
+    return dto;
+};
+
+export const transformDebtEntityToDto = (
+  entity: DebtEntity,
+): DebtDto => {
+    let dto = new DebtDto();
+    dto.id = entity.id;
+    dto.amount = entity.amount;
+    dto.dueDate = entity.dueDate;
+    dto.institution = entity.institution;
 
     return dto;
 };

@@ -40,7 +40,7 @@ export class ClientsService {
 
   async findOne(id: number): Promise<ClientEntity> {
     const found = await this.clientRepository.findOne({
-      relations: ['messages'],
+      relations: ["messages", "debts"],
       where: { id: id, deleted_at: IsNull() },
     });
     if (!found) {
