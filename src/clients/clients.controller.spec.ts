@@ -29,6 +29,7 @@ describe('ClientsController', () => {
           provide: ClientsService,
           useValue: {
             create: jest.fn().mockResolvedValue(data.createdEntity),
+            findOne: jest.fn().mockResolvedValue(data.createdEntity),
             findAll: jest.fn().mockResolvedValue([]),
           },
         },
@@ -51,5 +52,9 @@ describe('ClientsController', () => {
   it('should create client', async () => {
     jest.spyOn(service, 'create').mockResolvedValueOnce(data.createdEntity);
     expect(controller.create(data.createDto)).resolves.toHaveProperty("id", 10000);
+  });
+  it('should get client', async () => {
+    jest.spyOn(service, 'findOne').mockResolvedValueOnce(data.createdEntity);
+    expect(controller.findOne(10000)).resolves.toHaveProperty("id", 10000);
   });
 });
