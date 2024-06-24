@@ -71,3 +71,33 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+### Para rellenar
+
+MySql 8, packaje de node mysql2
+
+1. Crear archivo .env con las configuraciones
+
+``` Code
+DATABASE_HOST=localhost
+DATABASE_PORT=3306
+DATABASE_USER=root
+DATABASE_PASS=root
+DATABASE_NAME=lidz_scoring
+```
+
+## Configurar conexión
+
+- Agregar el .env de ejemplo
+- nombre de la base de datos
+
+## Rutas de la app
+
+Definición de la API <http://localhost:3000/api>
+
+
+## Links importantes
+
+<https://stackoverflow.com/questions/76663792/how-to-configure-typeorm-and-migrations-in-nestjs>
+
+<https://webtips.dev/webtips/jest/mock-promises-in-jest>
