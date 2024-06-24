@@ -16,7 +16,4 @@ describe('DatabaseModule', () => {
   it('should be defined', () => {
     expect(dbModule).toBeDefined();
   });
-  it('should be connected', () => {
-    
-  });
 });
