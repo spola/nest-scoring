@@ -8,6 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import {
+  ApiBody,
   ApiDefaultResponse,
   ApiOperation,
   ApiParam,
@@ -27,6 +28,11 @@ import { transformClientEntityToDto } from './dto/transform';
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
+  @ApiOperation({ summary: 'Crear un nuevo cliente' })
+  @ApiBody({
+    type: CreateClientDto,
+    required: true
+  })
   @Post()
   create(@Body() createClientDto: CreateClientDto) {
     delete createClientDto['id']; //ensure the object doesn't have id

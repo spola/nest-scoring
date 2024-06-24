@@ -101,3 +101,20 @@ Definición de la API <http://localhost:3000/api>
 <https://stackoverflow.com/questions/76663792/how-to-configure-typeorm-and-migrations-in-nestjs>
 
 <https://webtips.dev/webtips/jest/mock-promises-in-jest>
+
+<https://dev.to/avantar/validating-nested-objects-with-class-validator-in-nestjs-1gn8>
+
+Validación de los nested objects
+<https://stackoverflow.com/questions/72009995/typeerror-reflect-getmetadata-is-not-a-function>
+
+## Pendiente
+
+Preguntar a Luis:
+
+- Incluir el score en el client/:id
+
+¿Debería conver el agent del mssage en un enum?
+export enum GenderType {
+    Male = 'Male',
+    Female = 'Female',
+}

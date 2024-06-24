@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { ValidationError, validate } from 'class-validator';
 import { CreateClientDto } from './create-client.dto';
 import { error } from 'console';
@@ -105,6 +106,16 @@ describe('Clients DTO', () => {
 
       let errores = await validate(d);
       expect(errores).toHaveLength(0);
+    });
+
+    it('be invalid message', async () => {
+      dtoPlain.messages = [{ invalid: true }];
+      let d = plainToInstance(CreateClientDto, dtoPlain);
+
+      expect(d).toBeDefined();
+console.info(d);
+      let errores = await validate(d);
+      expect(errores).toHaveLength(1);
     });
   });
 });

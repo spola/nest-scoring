@@ -12,7 +12,7 @@ describe('Clients Messages DTO', () => {
     dtoPlain = {
       text: 'hola, quiero comprar un dpto',
       sentAt: '2023-12-24T00:00:00.000Z',
-      agent: 'client',
+      role: 'client',
     };
     dto = plainToInstance(CreateMessageDto, dtoPlain);
   });
@@ -59,16 +59,16 @@ describe('Clients Messages DTO', () => {
       errores = await validate(invalid);
       expect(errores).toHaveLength(1);
     });
-    it('be invalid agent', async () => {
+    it('be invalid role', async () => {
       let errores: ValidationError[];
 
-      dto.agent = null;
+      dto.role = null;
       errores = await validate(dto);
       expect(errores).toHaveLength(1);
 
       let invalid = plainToInstance(CreateMessageDto, {
         ...dtoPlain,
-        agent: '',
+        role: '',
       });
       errores = await validate(invalid);
       expect(errores).toHaveLength(1);

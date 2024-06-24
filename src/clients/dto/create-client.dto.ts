@@ -1,4 +1,6 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { CreateMessageDto } from './create-message.dto';
+import { Type } from 'class-transformer';
 
 export class CreateClientDto {
   @IsString()
@@ -16,4 +18,10 @@ export class CreateClientDto {
   @IsNotEmpty()
   @IsNumber({ allowNaN: false })
   savings: number;
+
+  @IsArray()
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => CreateMessageDto)
+  messages: CreateMessageDto[];
 }

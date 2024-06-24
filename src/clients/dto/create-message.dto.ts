@@ -7,7 +7,7 @@ import { IsDate, IsDateString, IsNotEmpty, IsString } from "class-validator";
   
     @IsString()
     @IsNotEmpty()
-    agent: string;
+    role: string;
 
     @IsDateString()
     @IsNotEmpty()
