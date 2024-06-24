@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { MessageDto } from './message.dto';
 
 export class ClientDto {
   @ApiProperty({
@@ -38,4 +39,13 @@ export class ClientDto {
     description: 'Ahorros del cliente',
   })
   savings: number;
+
+  @ApiProperty({
+    example: 4000000,
+    required: false,
+    description: 'Mensajes que se han compartido con el cliente',
+    isArray: true,
+    type: MessageDto,
+  })
+  messages: MessageDto[];
 }
