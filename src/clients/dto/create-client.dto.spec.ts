@@ -101,8 +101,6 @@ describe('Clients DTO', () => {
       dtoPlain.id = 1000;
       let d = plainToInstance(CreateClientDto, dtoPlain);
 
-      console.info(d);
-
       expect(d).toBeDefined();
 
       let errores = await validate(d);
