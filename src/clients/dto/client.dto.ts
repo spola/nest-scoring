@@ -26,14 +26,14 @@ export class ClientDto {
   rut: string;
 
   @ApiProperty({
-    example: 'Salario',
+    example: 100000,
     required: true,
     description: 'Salario del cliente',
   })
   salary: number;
 
   @ApiProperty({
-    example: 'Ahorros',
+    example: 4000000,
     required: true,
     description: 'Ahorros del cliente',
   })
