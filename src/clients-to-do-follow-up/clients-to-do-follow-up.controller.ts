@@ -18,13 +18,19 @@ import {
 import { ClientsToDoFollowUpService } from './clients-to-do-follow-up.service';
 import { ClientDto, ClientDtoProperties } from '../clients/dto/client.dto';
 import { resolve } from 'path';
+import { transformClientEntityToDto, transformClientEntityToDtoProperties } from '../clients/dto/transform';
 
 @ApiTags('clients-to-do-follow-up')
 @Controller('clients-to-do-follow-up')
 export class ClientsToDoFollowUpController {
-  constructor(private readonly clientsToDoFollowUpService: ClientsToDoFollowUpService) {}
+  constructor(
+    private readonly clientsToDoFollowUpService: ClientsToDoFollowUpService,
+  ) {}
 
-  @ApiOperation({ summary: 'Lista de los clientes en que el último mensaje haya sido hace más de 7 días' })
+  @ApiOperation({
+    summary:
+      'Lista de los clientes en que el último mensaje haya sido hace más de 7 días',
+  })
   @ApiResponse({
     status: 200,
     description: 'Lista de clientes',
@@ -32,13 +38,11 @@ export class ClientsToDoFollowUpController {
     isArray: true,
   })
   @Get()
-  async findAll() {
-    return new Promise( () => "Hola"
-    )
-    // let clients = this.clientsService.findAll();
+  async findAll() : Promise<ClientDtoProperties[]> {
+    let clients = this.clientsToDoFollowUpService.findAll();
 
-    // return clients.then((cls) =>
-    //   cls.map((cl) => transformClientEntityToDto(cl)),
-    // );
+    return clients.then((cls) =>
+      cls.map((cl) => transformClientEntityToDtoProperties(cl)),
+    );
   }
 }

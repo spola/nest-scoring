@@ -1,9 +1,23 @@
 import { ClientEntity } from '../entities/client.entity';
 import { DebtEntity } from '../entities/debt.entity';
 import { MessageEntity } from '../entities/message.entity';
-import { ClientDto } from './client.dto';
+import { ClientDto, ClientDtoProperties } from './client.dto';
 import { DebtDto } from './debt.dto';
 import { MessageDto } from './message.dto';
+
+export const transformClientEntityToDtoProperties = (
+  entity: ClientEntity,
+): ClientDtoProperties => {
+    let dto = new ClientDtoProperties();
+    
+    dto.id = entity.id;
+    dto.name = entity.name;
+    dto.rut = entity.rut;
+    dto.salary = entity.salary;
+    dto.savings = entity.savings;
+
+    return dto;
+};
 
 export const transformClientEntityToDto = (
   entity: ClientEntity,

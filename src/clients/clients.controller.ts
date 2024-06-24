@@ -21,7 +21,7 @@ import { UpdateClientDto } from './dto/update-client.dto';
 import { ClientEntity } from './entities/client.entity';
 import { ClientDto, ClientDtoProperties } from './dto/client.dto';
 
-import { transformClientEntityToDto } from './dto/transform';
+import { transformClientEntityToDto, transformClientEntityToDtoProperties } from './dto/transform';
 
 @ApiTags('clients')
 @Controller('clients')
@@ -51,7 +51,7 @@ export class ClientsController {
     let clients = this.clientsService.findAll();
 
     return clients.then((cls) =>
-      cls.map((cl) => transformClientEntityToDto(cl)),
+      cls.map((cl) => transformClientEntityToDtoProperties(cl)),
     );
   }
 
