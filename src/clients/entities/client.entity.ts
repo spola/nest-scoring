@@ -3,10 +3,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   VersionColumn,
 } from 'typeorm';
+import { MessageEntity } from './message.entity';
 
 @Entity('clients')
 export class ClientEntity {
@@ -36,4 +38,9 @@ export class ClientEntity {
 
   @VersionColumn({ select: false })
   version: number;
+
+  @OneToMany((type) => MessageEntity, (message) => message.client, {
+    cascade: true,
+  })
+  messages: MessageEntity[];
 }
