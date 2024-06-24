@@ -8,7 +8,7 @@ export const dataSourceOptions: DataSourceOptions = {
   password: 'root',
   database: 'lidz_scoring',
   entities: ['dist/**/*.entity.js'],
-  synchronize: true,
+  synchronize: false,
 //   options: { trustServerCertificate: true },
   logging: true,
   migrations: ['dist/database/migrations/*{.ts,.js}'],
