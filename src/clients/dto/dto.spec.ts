@@ -84,32 +84,29 @@ describe('Clients DTO', () => {
       expect(errores).toHaveLength(1);
     });
     it('be invalid rut', async () => {
-        let errores: ValidationError[];
-  
-        dto.rut = null;
-        errores = await validate(dto);
-        expect(errores).toHaveLength(1);
-  
-        let invalid = plainToInstance(CreateClientDto, {
-          ...dtoPlain,
-          rut: '',
-        });
-        errores = await validate(invalid);
-        expect(errores).toHaveLength(1);
+      let errores: ValidationError[];
+
+      dto.rut = null;
+      errores = await validate(dto);
+      expect(errores).toHaveLength(1);
+
+      let invalid = plainToInstance(CreateClientDto, {
+        ...dtoPlain,
+        rut: '',
       });
-    // it("be invalid cantidad", async () => {
+      errores = await validate(invalid);
+      expect(errores).toHaveLength(1);
+    });
+    it('should ignore id', async () => {
+      dtoPlain.id = 1000;
+      let d = plainToInstance(CreateClientDto, dtoPlain);
 
-    //     let dto = new CreatePruebaDto();
-    //     let errores: ValidationError[];
+      console.info(d);
 
-    //     dto.detalle = "Un mensaje";
-    //     errores = await validate(dto);
+      expect(d).toBeDefined();
 
-    //     expect(errores).toHaveLength(1);
-
-    //     expect(errores[0].constraints).toHaveProperty("isNotEmpty")
-    //     expect(errores[0].constraints).toHaveProperty("isNumber")
-
-    // });
+      let errores = await validate(d);
+      expect(errores).toHaveLength(0);
+    });
   });
 });

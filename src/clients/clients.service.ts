@@ -12,8 +12,17 @@ export class ClientsService {
     private clientRepository: Repository<ClientEntity>,
   ) {}
 
+  /**
+   * Create client
+   * @param createClientDto Parameter
+   * @returns ClientEntity Created entity
+   */
   async create(createClientDto: CreateClientDto): Promise<ClientEntity> {
-    throw new NotImplementedException();
+    const newClient = await this.clientRepository.save({
+      ...createClientDto,
+    });
+
+    return newClient;
   }
 
   async findAll(): Promise<ClientEntity[]> {

@@ -16,7 +16,7 @@ export class ClientEntity {
   @Column({ type: 'nvarchar', length: '100', nullable: false })
   name: string;
 
-  @Column({ type: 'nvarchar', length: '11', nullable: false })
+  @Column({ type: 'nvarchar', length: '13', nullable: false })
   rut: string;
 
   @Column({ type: 'int' })
