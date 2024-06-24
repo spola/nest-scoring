@@ -1,7 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { MessageDto } from './message.dto';
 import { DebtDto } from './debt.dto';
+import { OmitType } from '@nestjs/swagger';
 
+/**
+ * DTO utilizado para el detalle de un cliente. Incluye sus relaciones.
+ */
 export class ClientDto {
   @ApiProperty({
     example: '1000',
@@ -57,3 +61,11 @@ export class ClientDto {
   })
   debts: DebtDto[];
 }
+
+/**
+ * DTO Utilizado para las listas de los clientes
+ */
+export class ClientDtoProperties extends OmitType(ClientDto, [
+  'messages',
+  'debts',
+] as const) {}

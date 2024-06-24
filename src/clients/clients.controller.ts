@@ -19,7 +19,7 @@ import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 import { ClientEntity } from './entities/client.entity';
-import { ClientDto } from './dto/client.dto';
+import { ClientDto, ClientDtoProperties } from './dto/client.dto';
 
 import { transformClientEntityToDto } from './dto/transform';
 
@@ -43,7 +43,7 @@ export class ClientsController {
   @ApiResponse({
     status: 200,
     description: 'Lista de clientes',
-    type: ClientDto,
+    type: ClientDtoProperties,
     isArray: true,
   })
   @Get()

@@ -1,0 +1,44 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+import {
+  ApiBody,
+  ApiDefaultResponse,
+  ApiOperation,
+  ApiParam,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { ClientsToDoFollowUpService } from './clients-to-do-follow-up.service';
+import { ClientDto, ClientDtoProperties } from '../clients/dto/client.dto';
+import { resolve } from 'path';
+
+@ApiTags('clients-to-do-follow-up')
+@Controller('clients-to-do-follow-up')
+export class ClientsToDoFollowUpController {
+  constructor(private readonly clientsToDoFollowUpService: ClientsToDoFollowUpService) {}
+
+  @ApiOperation({ summary: 'Lista de los clientes en que el último mensaje haya sido hace más de 7 días' })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de clientes',
+    type: ClientDtoProperties,
+    isArray: true,
+  })
+  @Get()
+  async findAll() {
+    return new Promise( () => "Hola"
+    )
+    // let clients = this.clientsService.findAll();
+
+    // return clients.then((cls) =>
+    //   cls.map((cl) => transformClientEntityToDto(cl)),
+    // );
+  }
+}
