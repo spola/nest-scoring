@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 @Entity('clients')
-export class Client {
+export class ClientEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
