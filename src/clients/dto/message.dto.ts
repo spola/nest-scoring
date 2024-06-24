@@ -4,7 +4,7 @@ export class MessageDto {
   @ApiProperty({
     example: '1000',
     required: true,
-    description: 'Identificador del cliente',
+    description: 'Identificador del mensaje',
     type: 'integer',
     format: 'int32',
     nullable: true,
