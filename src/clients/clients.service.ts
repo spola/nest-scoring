@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotImplementedException } from '@nestjs/common';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,8 +12,8 @@ export class ClientsService {
     private clientRepository: Repository<ClientEntity>,
   ) {}
 
-  create(createClientDto: CreateClientDto) {
-    return 'This action adds a new client';
+  async create(createClientDto: CreateClientDto): Promise<ClientEntity> {
+    throw new NotImplementedException();
   }
 
   async findAll(): Promise<ClientEntity[]> {
