@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import {
   ApiBody,
-  ApiDefaultResponse,
   ApiOperation,
   ApiParam,
   ApiResponse,
@@ -18,7 +17,6 @@ import {
 import { ClientsService } from './clients.service';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
-import { ClientEntity } from './entities/client.entity';
 import { ClientDto, ClientDtoProperties } from './dto/client.dto';
 
 import {
@@ -26,6 +24,7 @@ import {
   transformClientEntityToDtoProperties,
 } from './dto/transform';
 import { ScoringService } from '../scoring/scoring.service';
+import { BadRequestOpenApiExampleDTO } from './dto/open-api-examples.dto';
 
 @ApiTags('clients')
 @Controller('clients')
@@ -44,8 +43,13 @@ export class ClientsController {
   })
   @ApiResponse({
     status: 201,
-    description: 'Client created',
+    description: 'Cliente creado',
     type: ClientDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Errores de validación',
+    type: BadRequestOpenApiExampleDTO,
   })
   @Post()
   create(@Body() createClientDto: CreateClientDto) {
