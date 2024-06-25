@@ -3,10 +3,12 @@ import { ClientsController } from './clients.controller';
 import { ClientsService } from './clients.service';
 import { ClientEntity } from './entities/client.entity';
 import { CreateClientDto } from './dto/create-client.dto';
+import { ScoringService } from '../scoring/scoring.service';
 
 describe('ClientsController', () => {
   let controller: ClientsController;
   let service: ClientsService;
+  let scoringService: ScoringService;
 
   function initData() {
     let createdEntity: ClientEntity = new ClientEntity();
@@ -33,15 +35,24 @@ describe('ClientsController', () => {
             findAll: jest.fn().mockResolvedValue([]),
           },
         },
+        {
+          provide: ScoringService,
+          useValue: {
+            calculate: jest.fn().mockResolvedValue({ scoring: 10 }),
+          },
+        },
       ],
     }).compile();
 
     controller = module.get<ClientsController>(ClientsController);
     service = module.get<ClientsService>(ClientsService);
+    scoringService = module.get<ScoringService>(ScoringService);
   });
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+    expect(service).toBeDefined();
+    expect(scoringService).toBeDefined();
   });
 
   it('should list clients', async () => {
@@ -51,10 +62,13 @@ describe('ClientsController', () => {
 
   it('should create client', async () => {
     jest.spyOn(service, 'create').mockResolvedValueOnce(data.createdEntity);
-    expect(controller.create(data.createDto)).resolves.toHaveProperty("id", 10000);
+    expect(controller.create(data.createDto)).resolves.toHaveProperty(
+      'id',
+      10000,
+    );
   });
   it('should get client', async () => {
     jest.spyOn(service, 'findOne').mockResolvedValueOnce(data.createdEntity);
-    expect(controller.findOne(10000)).resolves.toHaveProperty("id", 10000);
+    expect(controller.findOne(10000)).resolves.toHaveProperty('id', 10000);
   });
 });

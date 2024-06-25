@@ -9,6 +9,7 @@ import { ClientToScoreView } from './entities/client-to-score-view.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ClientEntity, MessageEntity, DebtEntity, ClientToScoreView])],
-  providers: [ScoringService]
+  providers: [ScoringService],
+  exports: [ScoringService]
 })
 export class ScoringModule {}

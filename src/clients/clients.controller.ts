@@ -25,11 +25,15 @@ import {
   transformClientEntityToDto,
   transformClientEntityToDtoProperties,
 } from './dto/transform';
+import { ScoringService } from '../scoring/scoring.service';
 
 @ApiTags('clients')
 @Controller('clients')
 export class ClientsController {
-  constructor(private readonly clientsService: ClientsService) {}
+  constructor(
+    private readonly clientsService: ClientsService,
+    private readonly scoringService: ScoringService,
+  ) {}
 
   @ApiOperation({
     summary: 'Crear un nuevo cliente junto con sus mensajes y deudas.',
@@ -99,5 +103,10 @@ export class ClientsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.clientsService.remove(+id);
+  }
+
+  @Get(':id/score')
+  score(@Param('id') id: number): Promise<{ scoring: number }> {
+    return this.scoringService.calculate(+id);
   }
 }
