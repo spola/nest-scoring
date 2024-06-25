@@ -20,10 +20,13 @@ describe('ClientsToDoFollowUpController', () => {
       ],
     }).compile();
 
-    controller = module.get<ClientsToDoFollowUpController>(ClientsToDoFollowUpController);
-    service = module.get<ClientsToDoFollowUpService>(ClientsToDoFollowUpService);
-
-  });                   
+    controller = module.get<ClientsToDoFollowUpController>(
+      ClientsToDoFollowUpController,
+    );
+    service = module.get<ClientsToDoFollowUpService>(
+      ClientsToDoFollowUpService,
+    );
+  });
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
@@ -35,16 +38,18 @@ describe('ClientsToDoFollowUpController', () => {
   });
 
   it('should list clients dto', async () => {
-    jest.spyOn(service, 'findAll').mockResolvedValueOnce([{
-      id: 1000,
-      name: "Alexis Vidal",
-      salary: 10000,
-      messages: [{}],
-      debts: [null]
-    }] as ClientEntity[]);
+    jest.spyOn(service, 'findAll').mockResolvedValueOnce([
+      {
+        id: 1000,
+        name: 'Alexis Vidal',
+        salary: 10000,
+        messages: [{}],
+        debts: [null],
+      },
+    ] as ClientEntity[]);
 
     var response = await controller.findAll();
-    
+
     expect(response).toHaveLength(1);
     expect(response[0]).not.toHaveProperty('messages');
     expect(response[0]).not.toHaveProperty('debts');

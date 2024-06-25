@@ -1,5 +1,5 @@
-import { ClientEntity } from 'src/clients/entities/client.entity';
-import { MessageEntity } from 'src/clients/entities/message.entity';
+import { ClientEntity } from '../../clients/entities/client.entity';
+import { MessageEntity } from '../../clients/entities/message.entity';
 import { DataSource, ViewColumn, ViewEntity } from 'typeorm';
 
 @ViewEntity({
