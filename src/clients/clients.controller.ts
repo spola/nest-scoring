@@ -24,7 +24,10 @@ import {
   transformClientEntityToDtoProperties,
 } from './dto/transform';
 import { ScoringService } from '../scoring/scoring.service';
-import { BadRequestOpenApiExampleDTO } from './dto/open-api-examples.dto';
+import {
+  BadRequestOpenApiExampleDTO,
+  NotFoundOpenApiExampleDTO,
+} from './dto/open-api-examples.dto';
 
 @ApiTags('clients')
 @Controller('clients')
@@ -87,6 +90,7 @@ export class ClientsController {
   @ApiResponse({
     status: 404,
     description: 'Cliente no encontrado',
+    type: NotFoundOpenApiExampleDTO,
   })
   @ApiParam({
     name: 'id',

@@ -27,3 +27,28 @@ export class BadRequestOpenApiExampleDTO {
   })
   statusCode: number;
 }
+
+
+export class NotFoundOpenApiExampleDTO {
+    @ApiProperty({
+      example: 'Client "2" not found',
+      required: true,
+      description: 'Errores de validación',
+      type: String,
+    })
+    message: string;
+  
+    @ApiProperty({
+      example: 'Not Found',
+      required: true,
+      description: 'Nombre del eror',
+    })
+    error: string;
+  
+    @ApiProperty({
+      example: 404,
+      required: true,
+      description: 'Código HTTP',
+    })
+    statusCode: number;
+  }
