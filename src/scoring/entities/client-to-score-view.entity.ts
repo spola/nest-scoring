@@ -1,4 +1,4 @@
-import { DebtEntity } from 'src/clients/entities/debt.entity';
+import { DebtEntity } from '../../clients/entities/debt.entity';
 import { ClientEntity } from '../../clients/entities/client.entity';
 import { MessageEntity } from '../../clients/entities/message.entity';
 import { DataSource, ViewColumn, ViewEntity } from 'typeorm';
