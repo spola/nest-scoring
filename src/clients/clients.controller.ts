@@ -21,22 +21,34 @@ import { UpdateClientDto } from './dto/update-client.dto';
 import { ClientEntity } from './entities/client.entity';
 import { ClientDto, ClientDtoProperties } from './dto/client.dto';
 
-import { transformClientEntityToDto, transformClientEntityToDtoProperties } from './dto/transform';
+import {
+  transformClientEntityToDto,
+  transformClientEntityToDtoProperties,
+} from './dto/transform';
 
 @ApiTags('clients')
 @Controller('clients')
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
-  @ApiOperation({ summary: 'Crear un nuevo cliente junto con sus mensajes y deudas.' })
+  @ApiOperation({
+    summary: 'Crear un nuevo cliente junto con sus mensajes y deudas.',
+  })
   @ApiBody({
     type: CreateClientDto,
-    required: true
+    required: true,
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Client created',
+    type: ClientDto,
   })
   @Post()
   create(@Body() createClientDto: CreateClientDto) {
     delete createClientDto['id']; //ensure the object doesn't have id
-    return this.clientsService.create(createClientDto);
+    return this.clientsService
+      .create(createClientDto)
+      .then((c) => transformClientEntityToDto(c));
   }
 
   @ApiOperation({ summary: 'Lista los clientes como un arreglo' })
