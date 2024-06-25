@@ -28,7 +28,7 @@ import { transformClientEntityToDto, transformClientEntityToDtoProperties } from
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
-  @ApiOperation({ summary: 'Crear un nuevo cliente' })
+  @ApiOperation({ summary: 'Crear un nuevo cliente junto con sus mensajes y deudas.' })
   @ApiBody({
     type: CreateClientDto,
     required: true
