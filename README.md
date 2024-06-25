@@ -1,38 +1,62 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+  <a href="https://lidz.cl/" target="blank"><img src="https://lidz.cl/assets/logo-long.webp" width="200" alt="Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Lidz definición de Api de prueba
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+En esta prueba técnica deberás crear un sencillo backend o API que permita almacenar datos y hacer algunos análisis sobre la información que tenemos.
 
-## Description
+Debe ser un servicio que tenga una base de datos relacional, en este caso será una base de datos MySQL.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Modelos contemplados:
 
-## Installation
+- Client: El cliente
+- Message: Mensajes de interacción con el cliente
+- Debt: Deudas del cliente con alguna institución
+
+Rutas a ser evaluadas:
+
+- GET /clients
+- GET /clients/:id
+- GET /clients-to-do-follow-up
+- POST /client
+- GET clients/:id/score
+
+# Acceso público
+
+Ruta de acceso al servicio conectado a base de datos que emular ambiente productivo.
+
+<https://lidz-scoring-ai7l5wdfta-tl.a.run.app>
+
+# Ambiente de desarrollo
+
+## Installación
+
+### Instalar paquetes necesarios de node
 
 ```bash
-$ npm install
+npm install
 ```
 
-## Running the app
+### Crear archivo .env con las configuraciones de acceso a la base de datos
+
+``` bash
+DATABASE_HOST=localhost
+DATABASE_PORT=3306
+DATABASE_USER=root
+DATABASE_PASS=root
+DATABASE_NAME=lidz_scoring
+```
+
+### Opcional. Ejecutar migrations para creación de base de datos.
+
+```Bash
+npm run migration:run
+```
+
+## Ejecutar la app
+
+Por defecto se utiliza el puerto 5000 para acceder a la aplicación <http://localhost:5000/>
 
 ```bash
 # development
@@ -45,40 +69,24 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+Nota: Antes de ejecutar en modo producción se recomienda construir aplicación con npm run build.
+
 ## Test
 
 ```bash
 # unit tests
 $ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
-## Support
+### Detalle de la aplicación
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Configuración de la base de datos
 
-## Stay in touch
+El sistema fue implementado utilizando MySql 8, junto con el packaje de node mysql2
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Crea archivo .env con las configuraciones
 
-## License
-
-Nest is [MIT licensed](LICENSE).
-
-### Para rellenar
-
-MySql 8, packaje de node mysql2
-
-1. Crear archivo .env con las configuraciones
-
-``` Code
+``` bash
 DATABASE_HOST=localhost
 DATABASE_PORT=3306
 DATABASE_USER=root
@@ -86,14 +94,25 @@ DATABASE_PASS=root
 DATABASE_NAME=lidz_scoring
 ```
 
-## Configurar conexión
+## Docker
 
-- Agregar el .env de ejemplo
-- nombre de la base de datos
+Build
 
-## Rutas de la app
+``` Console
+docker build -t lidz-scoring .
+```
 
-Definición de la API <http://localhost:3000/api>
+Run docker
+
+La configuración de la base de datos se debe generar como variables de entorno
+
+
+``` Console
+docker run -p80:5000 -e DATABASE_NAME=c4u82703_lidz -e DATABASE_PASS=lidz_scoring -e DATABASE_USER=c4u82703_lidz -e DATABASE_HOST=srv7.cpanelhost.cl lidz-scoring
+```
+
+
+
 
 ## Links importantes
 
@@ -127,3 +146,24 @@ export enum GenderType {
 }
 
 Home : <https://lidz.cl/>
+Link a la api
+
+Configuración de la base de datos para migration está por separado
+
+
+
+## Migrations
+
+Recordar el tener la propiedad syncronize en false para que se genere la migración en un archivo y no se ejecute inmediatamente.
+
+Ejecutar migraciones
+
+```Bash
+npm run migration:run
+```
+
+Crear migración
+
+``` Bash
+npm run migration:generate -- .\src\database\migrations\AddClientToScoreView
+```
