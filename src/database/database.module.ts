@@ -19,13 +19,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
                     entities: ['dist/**/*.entity.js'],
                     synchronize: false,
                     options: { trustServerCertificate: true },
-                    logging: true
+                    logging: configService.get('DATABASE_LOGGING', false)
                 };
-
             }
-
-
-            ,
         }),
     ],
 })
