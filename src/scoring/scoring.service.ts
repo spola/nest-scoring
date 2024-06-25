@@ -105,7 +105,7 @@ export class ScoringService {
       costNormalized,
       downPaymentPercentaje,
     );
-    console.info(vector);
+
     let scoring =
       factors.interest(vector.interest) +
       factors.purshaseCapacity(vector.purshaseCapacity) +

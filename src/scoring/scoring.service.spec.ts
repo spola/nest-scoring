@@ -49,7 +49,6 @@ describe('ScoringService', () => {
     expect(service).toBeDefined();
     // expect(clientRepository).toBeDefined();
     expect(clientToScoreViewRepository).toBeDefined();
-    console.dir(clientToScoreViewRepository);
   });
 
   describe('should create vector', () => {
