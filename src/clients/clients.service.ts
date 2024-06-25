@@ -52,8 +52,4 @@ export class ClientsService {
   update(id: number, updateClientDto: UpdateClientDto) {
     return `This action updates a #${id} client`;
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} client`;
-  }
 }

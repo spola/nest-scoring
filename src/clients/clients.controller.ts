@@ -104,11 +104,6 @@ export class ClientsController {
     return this.clientsService.update(+id, updateClientDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.clientsService.remove(+id);
-  }
-
   @Get(':id/score')
   score(@Param('id') id: number): Promise<{ scoring: number }> {
     return this.scoringService.calculate(+id);
