@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Response } from 'express';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -16,7 +17,12 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBeDefined();
+      const req = {
+        send: jest.fn(),
+      } as unknown as Response;
+      appController.getHello(req);
+
+      expect(req.send).toHaveBeenCalled();
     });
   });
 });
