@@ -4,9 +4,10 @@ import { ClientsToDoFollowUpController } from './clients-to-do-follow-up.control
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ClientEntity } from '../clients/entities/client.entity';
 import { MessageEntity } from '../clients/entities/message.entity';
+import { ClientToDoFollowUpView } from './entities/client-to-do-follow-up-view.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ClientEntity, MessageEntity])],
+  imports: [TypeOrmModule.forFeature([ClientEntity, MessageEntity, ClientToDoFollowUpView])],
   controllers: [ClientsToDoFollowUpController],
   providers: [ClientsToDoFollowUpService],
 })
