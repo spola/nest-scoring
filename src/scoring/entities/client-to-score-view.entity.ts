@@ -29,10 +29,10 @@ export class ClientToScoreView {
   @ViewColumn({name:'last_messages'})
   lastMessages: number;
 
-  @ViewColumn()
+  @ViewColumn({name:'c_salary'})
   salary: number;
 
-  @ViewColumn()
+  @ViewColumn({name:'c_savings'})
   savings: number;
 
   @ViewColumn({name:'total_debts'})
