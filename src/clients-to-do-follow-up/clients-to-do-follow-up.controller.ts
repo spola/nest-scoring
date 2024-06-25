@@ -29,6 +29,25 @@ export class ClientsToDoFollowUpController {
 
   @ApiOperation({
     summary:
+      'Lista de los clientes en que el último mensaje haya sido hace más de 7 días. Utiliza Query Builder y filtra en memoria.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de clientes',
+    type: ClientDtoProperties,
+    isArray: true,
+  })
+  @Get("querybuilder")
+  async findAllQueryBuilder() : Promise<ClientDtoProperties[]> {
+    let clients = this.clientsToDoFollowUpService.findAllQueryBuilder();
+
+    return clients.then((cls) =>
+      cls.map((cl) => transformClientEntityToDtoProperties(cl)),
+    );
+  }
+
+  @ApiOperation({
+    summary:
       'Lista de los clientes en que el último mensaje haya sido hace más de 7 días',
   })
   @ApiResponse({
