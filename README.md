@@ -109,6 +109,11 @@ Validación de los nested objects
 Views
 <https://daily-dev-tips.com/posts/typeorm-viewentity/>
 
+Deploy gcloud
+<https://www.tomray.dev/deploy-nestjs-cloud-run>
+
+Publicado : <https://lidz-scoring-ai7l5wdfta-tl.a.run.app/>
+
 ## Pendiente
 
 Preguntar a Luis:
