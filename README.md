@@ -95,7 +95,6 @@ DATABASE_NAME=lidz_scoring
 
 Definición de la API <http://localhost:3000/api>
 
-
 ## Links importantes
 
 <https://stackoverflow.com/questions/76663792/how-to-configure-typeorm-and-migrations-in-nestjs>
@@ -106,6 +105,9 @@ Definición de la API <http://localhost:3000/api>
 
 Validación de los nested objects
 <https://stackoverflow.com/questions/72009995/typeerror-reflect-getmetadata-is-not-a-function>
+
+Views
+<https://daily-dev-tips.com/posts/typeorm-viewentity/>
 
 ## Pendiente
 
