@@ -26,6 +26,7 @@ import {
 import { ScoringService } from '../scoring/scoring.service';
 import {
   BadRequestOpenApiExampleDTO,
+  ClientScoringDTO,
   NotFoundOpenApiExampleDTO,
 } from './dto/open-api-examples.dto';
 
@@ -108,8 +109,26 @@ export class ClientsController {
     return this.clientsService.update(+id, updateClientDto);
   }
 
+  @ApiOperation({
+    summary: 'Devolver la información del puntaje de evaluación del cliente',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Puntaje del cliente encontrado',
+    type: ClientScoringDTO,
+    isArray: false,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Cliente no encontrado',
+    type: NotFoundOpenApiExampleDTO,
+  })
+  @ApiParam({
+    name: 'id',
+    description: 'id del cliente a ser buscado',
+  })
   @Get(':id/score')
-  score(@Param('id') id: number): Promise<{ scoring: number }> {
+  score(@Param('id') id: number): Promise<ClientScoringDTO> {
     return this.scoringService.calculate(+id);
   }
 }

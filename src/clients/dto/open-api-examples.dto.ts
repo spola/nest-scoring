@@ -52,3 +52,12 @@ export class NotFoundOpenApiExampleDTO {
     })
     statusCode: number;
   }
+
+  export class ClientScoringDTO {
+    @ApiProperty({
+        example: 75.256,
+        required: true,
+        description: 'Puntaje del cliente'
+    })
+    scoring:number;
+  }
