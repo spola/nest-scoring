@@ -51,6 +51,8 @@ DATABASE_LOGGING=false # Default false
 
 ### Opcional. Ejecutar migrations para creación de base de datos
 
+La configuración de la conexión a la base de datos se realiza consumiendo las variables de entorno configuradas en el archivo ".env". En caso de requerir ejecutar una migración contra una base de datos en otro ambiente bastaría con configurar la variable NODE_ENV al ejecutar el comando y tener configurado el archivo ".env.{NODE_ENV}" correspondiente.
+
 ```Bash
 npm run migration:run
 ```
@@ -93,6 +95,7 @@ DATABASE_PORT=3306
 DATABASE_USER=root
 DATABASE_PASS=root
 DATABASE_NAME=lidz_scoring
+DATABASE_LOGGING=false # Default false
 ```
 
 ## Docker
@@ -109,6 +112,16 @@ La configuración de la base de datos se debe entregar como variables de entorno
 
 ``` Console
 docker run -p80:5000 -e DATABASE_NAME=lidz_scoring -e DATABASE_PASS=root -e DATABASE_USER=root -e DATABASE_HOST=localhost
+```
+
+## Despliegue en Google Run
+
+Para configurar el despliegue se puede seguir <https://www.tomray.dev/deploy-nestjs-cloud-run>.
+
+Una vez configurado el ambiente, el despliegue manual se realiza con el comando de gcloud.
+
+``` Console
+gcloud run deploy --source .
 ```
 
 ## Links importantes
