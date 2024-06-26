@@ -9,8 +9,12 @@ import { ClientScoringVectorDTO } from './dto/client-scoring-vector.dto';
 // import { ClientToDoFollowUpView } from './entities/client-to-do-follow-up-view.entity';
 import vectorFactor, { VectorFactor } from './scoring.factors';
 
+/**
+ * Scoring service class
+ */
 @Injectable()
 export class ScoringService {
+  
   constructor(
     @InjectRepository(ClientToScoreView)
     private clientToScoreViewRepository: Repository<ClientToScoreView>,
@@ -76,11 +80,14 @@ export class ScoringService {
   }
 
   /**
+   * Create the factor's vector related to the client.
    *
-   * @param clientData
-   * @param cost
-   * @param downPaymentPercentage
-   * @returns
+   * @see {@link VectorFactor} for the returned data structure
+   *
+   * @param clientData set of data
+   * @param cost purchase amount
+   * @param downPaymentPercentage down payment percenteje [0-100]
+   * @returns factor's vector
    */
   createFactors(
     clientData: ClientToScoreView,
