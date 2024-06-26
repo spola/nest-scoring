@@ -29,27 +29,33 @@ export class ClientsService {
     return newClient;
   }
 
+  /**
+   * Find all the clients not deleted
+   * @returns clients
+   */
   async findAll(): Promise<ClientEntity[]> {
     return await this.clientRepository.find({
-      //relations: ['detalles'],
       where: {
         deleted_at: IsNull(),
       },
     });
   }
 
+  /**
+   * Find one client.
+   *
+   * @throws NotFoundException when client not found
+   * @param id - client id
+   * @returns client
+   */
   async findOne(id: number): Promise<ClientEntity> {
     const found = await this.clientRepository.findOne({
-      relations: ["messages", "debts"],
+      relations: ['messages', 'debts'],
       where: { id: id, deleted_at: IsNull() },
     });
     if (!found) {
       throw new NotFoundException(`Client "${id}" not found`);
     }
     return found;
-  }
-
-  update(id: number, updateClientDto: UpdateClientDto) {
-    return `This action updates a #${id} client`;
   }
 }

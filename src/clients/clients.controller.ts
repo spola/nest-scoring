@@ -104,11 +104,6 @@ export class ClientsController {
       .then((cl) => transformClientEntityToDto(cl));
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateClientDto: UpdateClientDto) {
-    return this.clientsService.update(+id, updateClientDto);
-  }
-
   @ApiOperation({
     summary: 'Devolver la información del puntaje de evaluación del cliente',
   })
