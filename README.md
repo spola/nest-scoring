@@ -38,11 +38,11 @@ Para el cálculo de este scoring se utilizaron indicadores de **interés de comp
 - **Capacidad de pago del pie**: La relación entre los ahorros y el costo del pie.
 - **Capacidad de pago mensual**: La relación entre el estimado de la hipoteca mensual y el sueldo del cliente.
 - **Nivel de endeudamiento**: La cantidad de meses que el cliente tendría que destinar el total de su salario a amortizar su deuda para saldarla.
-- **Ahorros reales**: Le relación entre lo que tiene ahorrado menos la deuda y el pago del pie. Se considera que el cliente podría usar los ahorros que tiene en el pago de las deudas por sobre la adquisición de un bien inmueble.
+- **Ahorros reales**: La relación entre lo que tiene ahorrado menos la deuda y el pago del pie. Se considera que el cliente podría usar los ahorros que tiene en el pago de las deudas por sobre la adquisición de un bien inmueble.
 
 ### Tabla de factores
 
-La tabla de factores va a depender del perfil de comprador del cliente. Podría ser un inversionista, familia, persona soltera, etc. Para el caso de este ejercicio se considera que todos los clientes son de un mismo perfil, por tanto se utiliza la misma tabla de factores. Sin embargo, se construó el cálculo considerando que podrían agregarse más perfiles a futuro.
+La tabla de factores va a depender del perfil de comprador del cliente. Podría ser un inversionista, familia, persona soltera, etc. Para el caso de este ejercicio se considera que todos los clientes son de un mismo perfil, por tanto se utiliza la misma tabla de factores. Sin embargo, se construyó el cálculo considerando que podrían agregarse más perfiles a futuro.
 
 #### **Indicador de interés de compra**
 
@@ -59,7 +59,7 @@ Posibles valores:
 
 Se considera que el 10% del puntaje del cliente corresponde a su capacidad de pago.
 
-La capacidad de pago es un númnero decimal que indica la relación entre los ahorros y el costo del pie. Mientras más grande el indicador, es más alto el puntaje.
+La capacidad de pago es un número decimal que indica la relación entre los ahorros y el costo del pie. Mientras más grande el indicador, es más alto el puntaje.
 
 Posibles valores:
 
@@ -83,12 +83,12 @@ Posibles valores:
 
 Se considera que el 20% del puntaje del cliente corresponde a su nivel de endeudamiento.
 
-El nivel de endeudamiento es un númnero decimal que indica la relación entre el total de la deuda y el salario de la persona. Indica la cantidad de meses que debería dedicar la persona para saldar su deuda si usase todo su sueldo en esto. A mayor valor del indicador, menor el puntaje.
+El nivel de endeudamiento es un número decimal que indica la relación entre el total de la deuda y el salario de la persona. Indica la cantidad de meses que debería dedicar la persona para saldar su deuda si usase todo su sueldo en esto. A mayor valor del indicador, menor el puntaje.
 
 Posibles valores:
 
 - Indicador mayor o igual a 2, tiene que destinar 2 o más meses para saldar sus deudas. En este caso se le asigna 0 puntos.
-- Indicador es menor o igual a 1, tiene que destinar menos de un mes de su salario para saldar sus dedudas. En este caso se le asigna el puntaje completo del indicador.
+- Indicador es menor o igual a 1, tiene que destinar menos de un mes de su salario para saldar sus deudas. En este caso se le asigna el puntaje completo del indicador.
 - Indicador entre 1 y 2, se calcula el puntaje `(1 - indicador) * puntaje`
 
 #### **Indicador de nivel de ahorros reales**
@@ -109,17 +109,17 @@ Consideraciones para realizar el cálculo del scoring:
 
 - Se utilizó como valor fijo de UF 38000. El cálculo de conversión de moneda quedó encapsulado en un método para ser reemplazado por un parámetro dinámico.
 
-- Se cosidera que los ahorros y los salarios de los clientes están en pesos.
+- Se considera que los ahorros y los salarios de los clientes están en pesos.
 
 ### Mejoras al cálculo del scoring
 
-Considerar que las deuda de una persona tienen tasa de interes y que el monto va creciendo en el tiempo.
+Considerar que las deudas de una persona tienen tasa de interés y que el monto va creciendo en el tiempo.
 
 Estudiar el comportamiento de los compradores en función del monto ahorrado. Podría ser que prefieran comprar inmuebles más caros, esto debería bajar el puntaje de clientes con ahorros demasiado grandes comparados con el monto del pie.
 
 Dependiendo del perfil del cliente se pueden utilizar tablas de factores o tablas de puntajes distintos. Por ejemplo, un inversionista podría tomar la decisión de compra con menos mensajes que una persona que compra un inmueble para vivir.
 
-El modelo utilizado es una combinacón lineal entre los indicadores y las tablas de factores, un modelo avanzado contempla variables interdependientes.
+El modelo utilizado es una combinación lineal entre los indicadores y las tablas de factores, un modelo avanzado contempla variables interdependientes.
 
 # Acceso al sistema publicado
 
@@ -129,7 +129,7 @@ Ruta de acceso al servicio conectado a base de datos que emular ambiente product
 
 # Para desarrollar en ambiente local
 
-## Installación
+## Instalación
 
 ### Instalar paquetes necesarios de node
 
@@ -184,7 +184,7 @@ $ npm run test
 
 ## Configuración de la base de datos
 
-El sistema fue implementado utilizando MySql 8, junto con el packaje de node mysql2
+El sistema fue implementado utilizando MySql 8, junto con el package de node mysql2
 
 Crea archivo .env con las configuraciones
 
@@ -264,7 +264,7 @@ Crear migración
 npm run migration:generate -- .\src\database\migrations\AddClientToScoreView
 ```
 
-## Deciciones arquitectónicas
+## Decisiones arquitectónicas
 
 Se separó la aplicación en 3 módulos de negocio de acuerdo al dominio que atendían.
 
@@ -276,11 +276,11 @@ Módulos:
 
 La decisión de esta división pasa principalmente por como se agrupa la lógica del negocio y estableciendo los puntos donde podrá tener mayor crecimiento. Es más probable que se modifique y actualice el motor de cálculo a que se creen endpoints para clientes.
 
-Se podría haber creado el servicio de scoring en el mismo módulo de cliente. Por experiencia, un componente tan exautivo en cálculo tiende a tener muchos subcomponentes, lo que hace más complejo el mantener una arquitectura limpia.
+Se podría haber creado el servicio de scoring en el mismo módulo de cliente. Por experiencia, un componente tan exhaustivo en cálculo tiende a tener muchos subcomponentes, lo que hace más complejo el mantener una arquitectura limpia.
 
 Otro factor *mucho más relevante* para un emprendimiento como esto, es que el cálculo del puntaje es crucial y la fórmula de este cálculo además es activo importantísimo que debe mantenerse a resguardo. Teniendo el módulo de score por separado podría permitir separar la API en dos y de este modo otorgar acceso restringido a la fórmula.
 
-### Deciciones técnicas
+### Decisiones técnicas
 
 #### Copiado de datos entre DTO y Entities
 
