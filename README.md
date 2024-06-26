@@ -263,3 +263,33 @@ Crear migración
 ``` Bash
 npm run migration:generate -- .\src\database\migrations\AddClientToScoreView
 ```
+
+## Deciciones arquitectónicas
+
+Se separó la aplicación en 3 módulos de negocio de acuerdo al dominio que atendían.
+
+Módulos:
+
+- clients: Módulo de cliente, contiene toda la lógica para atender los endpoints CRUD de un cliente.
+- client-to-do-follow-up: Módulo de los clientes a los que se les debe hacer seguimiento. Comparte las entidades del módulo de clientes.
+- scoring: Módulo de cálculo de scoring. No posee endpoints, exporta un servicio para que el módulo de cliente exponga el endpoint de cálculo de score.
+
+La decisión de esta división pasa principalmente por como se agrupa la lógica del negocio y estableciendo los puntos donde podrá tener mayor crecimiento. Es más probable que se modifique y actualice el motor de cálculo a que se creen endpoints para clientes.
+
+Se podría haber creado el servicio de scoring en el mismo módulo de cliente. Por experiencia, un componente tan exautivo en cálculo tiende a tener muchos subcomponentes, lo que hace más complejo el mantener una arquitectura limpia.
+
+Otro factor *mucho más relevante* para un emprendimiento como esto, es que el cálculo del puntaje es crucial y la fórmula de este cálculo además es activo importantísimo que debe mantenerse a resguardo. Teniendo el módulo de score por separado podría permitir separar la API en dos y de este modo otorgar acceso restringido a la fórmula.
+
+### Deciciones técnicas
+
+#### Copiado de datos entre DTO y Entities
+
+Se decidió no utilizar herramientas automáticas de copiado de entidades a dto y viceversa. Dado que estamos en un ambiente javascript, al ejecutar en la aplicación el chequeo de clases y tipos de typescript se elimina y muchas veces esto produce que se copien propiedades que no queremos.
+
+Por ejemplo, en la clase [transform.ts](https://github.com/spola/lidz-scoring/blob/main/src/clients/dto/transform.ts) están transformaciones explícitas entre los dto y las entidades del módulo de clientes.
+
+#### Utilización de vistas
+
+Se decidió utilizar vistas para el cálculo de indicadores y la obtención de los clientes que necesitan contacto. Estos son cálculos masivos que podrían ser intensos, para esto, podemos precalcular algunos valores y dejarlos en vistas materializadas para acelerar el cálculo.
+
+De todos modos, para mostrar el uso de querybuilder para queries complejas en el orm, también se generó un endpoint que la utiliza (findAllQueryBuilder).
