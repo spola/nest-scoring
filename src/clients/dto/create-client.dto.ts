@@ -52,13 +52,3 @@ export class CreateClientDto extends OmitType(ClientDto, ['id']) {
   @Type(() => CreateDebtDto)
   debts: CreateDebtDto[];
 }
-
-/*
-  @ApiProperty({
-    required: false,
-    description: 'Deudas registradas por el cliente',
-    isArray: true,
-    type: OmitType(DebtDto, ['id']),
-  })
-
-*/
