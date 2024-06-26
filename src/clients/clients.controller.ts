@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import {
   ApiBody,
@@ -102,7 +103,7 @@ export class ClientsController {
     description: 'id del cliente a ser buscado',
   })
   @Get(':id')
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id', ParseIntPipe) id: number) {
     return this.clientsService
       .findOne(+id)
       .then((cl) => transformClientEntityToDto(cl));
@@ -127,7 +128,7 @@ export class ClientsController {
     description: 'id del cliente a ser buscado',
   })
   @Get(':id/score')
-  score(@Param('id') id: number): Promise<ClientScoringDTO> {
+  score(@Param('id', ParseIntPipe) id: number): Promise<ClientScoringDTO> {
     return this.scoringService.calculate(+id);
   }
 }

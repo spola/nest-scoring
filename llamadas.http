@@ -58,3 +58,9 @@ Content-Type: application/json
     }
   ]
 }
+
+### Buscar cliente con id como texto
+GET http://localhost:5000/clients/malo
+
+### Buscar score con id como texto
+GET http://localhost:5000/clients/malo/score
