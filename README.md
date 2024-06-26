@@ -293,3 +293,9 @@ Por ejemplo, en la clase [transform.ts](https://github.com/spola/lidz-scoring/bl
 Se decidió utilizar vistas para el cálculo de indicadores y la obtención de los clientes que necesitan contacto. Estos son cálculos masivos que podrían ser intensos, para esto, podemos precalcular algunos valores y dejarlos en vistas materializadas para acelerar el cálculo.
 
 De todos modos, para mostrar el uso de querybuilder para queries complejas en el orm, también se generó un endpoint que la utiliza (findAllQueryBuilder).
+
+#### No utilizar enum
+
+Como la api está en una etapa temprana se decidió no limitar por completo algunos ingresos de información con el fin de tener mayor flexibilidad para adaptarse a las necesidades de los clientes.
+
+Por ejemplo, los mensajes podrían tener el role como enum.
