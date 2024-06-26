@@ -46,9 +46,10 @@ DATABASE_PORT=3306
 DATABASE_USER=root
 DATABASE_PASS=root
 DATABASE_NAME=lidz_scoring
+DATABASE_LOGGING=false # Default false
 ```
 
-### Opcional. Ejecutar migrations para creación de base de datos.
+### Opcional. Ejecutar migrations para creación de base de datos
 
 ```Bash
 npm run migration:run
@@ -104,53 +105,36 @@ docker build -t lidz-scoring .
 
 Run docker
 
-La configuración de la base de datos se debe generar como variables de entorno
-
+La configuración de la base de datos se debe entregar como variables de entorno
 
 ``` Console
-docker run -p80:5000 -e DATABASE_NAME=c4u82703_lidz -e DATABASE_PASS=lidz_scoring -e DATABASE_USER=c4u82703_lidz -e DATABASE_HOST=srv7.cpanelhost.cl lidz-scoring
+docker run -p80:5000 -e DATABASE_NAME=lidz_scoring -e DATABASE_PASS=root -e DATABASE_USER=root -e DATABASE_HOST=localhost
 ```
-
-
-
 
 ## Links importantes
 
-<https://stackoverflow.com/questions/76663792/how-to-configure-typeorm-and-migrations-in-nestjs>
+Algunos links que resultaron importantes durante la implementación del sistema
 
-<https://webtips.dev/webtips/jest/mock-promises-in-jest>
+Configuración de las migraciones <https://stackoverflow.com/questions/76663792/how-to-configure-typeorm-and-migrations-in-nestjs>
 
-<https://dev.to/avantar/validating-nested-objects-with-class-validator-in-nestjs-1gn8>
+Mock de promesas para pruebas <https://webtips.dev/webtips/jest/mock-promises-in-jest>
+
+Validación de los dto para las pruebas <https://dev.to/avantar/validating-nested-objects-with-class-validator-in-nestjs-1gn8>
 
 Validación de los nested objects
 <https://stackoverflow.com/questions/72009995/typeerror-reflect-getmetadata-is-not-a-function>
 
-Views
+Creación de Views con typeorm
 <https://daily-dev-tips.com/posts/typeorm-viewentity/>
 
 Deploy gcloud
 <https://www.tomray.dev/deploy-nestjs-cloud-run>
+<https://www.tomray.dev/deploy-nestjs-cloud-run#manually-deploying-to-cloud-run>
+
+Corregir que typeorm ignora el .env en los migrations
+<https://github.com/typeorm/typeorm/issues/3894>
 
 Publicado : <https://lidz-scoring-ai7l5wdfta-tl.a.run.app/>
-
-## Pendiente
-
-Preguntar a Luis:
-
-- Incluir el score en el client/:id
-
-¿Debería conver el agent del mssage en un enum?
-export enum GenderType {
-    Male = 'Male',
-    Female = 'Female',
-}
-
-Home : <https://lidz.cl/>
-Link a la api
-
-Configuración de la base de datos para migration está por separado
-
-
 
 ## Migrations
 
