@@ -9,10 +9,6 @@ import { ClientToScoreView } from './entities/client-to-score-view.entity';
 describe('ScoringService', () => {
   let service: ScoringService;
 
-  // let clientRepository: Repository<ClientEntity>;
-  // let clientRepositoryToken: string | Function =
-  //   getRepositoryToken(ClientEntity);
-
   let clientToScoreViewRepository: Repository<ClientToScoreView>;
   let clientToScoreViewToken: string | Function =
     getRepositoryToken(ClientToScoreView);
@@ -21,11 +17,6 @@ describe('ScoringService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ScoringService,
-        // {
-        //   provide: clientRepositoryToken,
-        //   useClass: Repository,
-        //   useValue: {},
-        // },
         {
           provide: clientToScoreViewToken,
           useClass: Repository,
@@ -40,14 +31,10 @@ describe('ScoringService', () => {
       clientToScoreViewToken,
     );
     service = module.get<ScoringService>(ScoringService);
-    // clientRepository = module.get<Repository<ClientEntity>>(
-    //   clientRepositoryToken,
-    // );
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
-    // expect(clientRepository).toBeDefined();
     expect(clientToScoreViewRepository).toBeDefined();
   });
 
