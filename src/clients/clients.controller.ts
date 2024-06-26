@@ -58,6 +58,10 @@ export class ClientsController {
   @Post()
   create(@Body() createClientDto: CreateClientDto) {
     delete createClientDto['id']; //ensure the object doesn't have id
+
+    createClientDto.messages?.forEach(v=> delete v['id'] );
+    createClientDto.debts?.forEach(v=> delete v['id'] );
+
     return this.clientsService
       .create(createClientDto)
       .then((c) => transformClientEntityToDto(c));

@@ -60,12 +60,67 @@ describe('ClientsController', () => {
     expect(controller.findAll()).resolves.toHaveLength(0);
   });
 
-  it('should create client', async () => {
-    jest.spyOn(service, 'create').mockResolvedValueOnce(data.createdEntity);
-    expect(controller.create(data.createDto)).resolves.toHaveProperty(
-      'id',
-      10000,
-    );
+  describe('should create client', () => {
+
+    let param;
+
+    beforeEach(() => {
+      param = {
+        id: 10,
+        name: 'name',
+        rut: 'rut',
+        salary: 1000,
+        savings: 4000,
+        messages: [
+          {
+            id:10,
+            text: "text",
+            role: "role",
+            sentAt: new Date()
+          }
+        ],
+        debts: [
+          {
+            id:10,
+            institution: "text",
+            amount: 1000,
+            sentAt: new Date()
+          }
+        ]
+      };
+    })
+
+    it('ok', async () => {
+      jest.spyOn(service, 'create').mockResolvedValueOnce(data.createdEntity);
+      expect(controller.create(data.createDto)).resolves.toHaveProperty(
+        'id',
+        10000,
+      );
+    });
+
+    it('eliminating the ids nested', async () => {
+      jest.spyOn(service, 'create').mockResolvedValueOnce(data.createdEntity);
+
+      expect(
+        controller.create(param as any as CreateClientDto),
+      ).resolves.toHaveProperty('id', 10000);
+
+      expect(param).not.toHaveProperty('id');
+      expect(param.messages[0]).not.toHaveProperty('id');
+      expect(param.debts[0]).not.toHaveProperty('id');
+    });
+
+    it('eliminating the id of client, other nulls', async () => {
+      jest.spyOn(service, 'create').mockResolvedValueOnce(data.createdEntity);
+
+      let {messages, debts, ...params} = param;
+
+      expect(
+        controller.create(params as any as CreateClientDto),
+      ).resolves.toHaveProperty('id', 10000);
+
+      expect(params).not.toHaveProperty('id');
+    });
   });
   it('should get client', async () => {
     jest.spyOn(service, 'findOne').mockResolvedValueOnce(data.createdEntity);
