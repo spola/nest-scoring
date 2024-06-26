@@ -24,11 +24,11 @@ Rutas a ser evaluadas:
 
 Se utilizó como definición de la API el estándar OpenAPI 3.0 implementado por <https://swagger.io/specification/> a través de la librería "@nestjs/swagger".
 
-Cada endpoint se indica los parámetros, cuerpo que consume y/o posibles respuestas HTTP.
+En cada endpoint se indican los parámetros, cuerpo que consume y/o posibles respuestas HTTP.
 
 ## Cálculo de scoring
 
-El puntaje de scoring intenta mostrar cual es la probabilidad de compra de cliente, para este modelo se utiliza normalmente muchas variables del clientes y otros parámetros que van ajustando los resultados para acercarse a lo que las ventas históricas entregan como información.
+El puntaje de scoring intenta mostrar cuál es la probabilidad de compra de cliente, para este modelo se utiliza normalmente muchas variables del clientes y otros parámetros que van ajustando los resultados para acercarse a lo que las ventas históricas entregan como información.
 
 Para el cálculo de este scoring se utilizaron indicadores de **interés de compra**, de **capacidad de pago del pie**, **capacidad de pago mensual**, **nivel de endeudamiento** y **ahorros reales**. Cada uno de estos indicadores tiene un rango de factores asociado con el que se le asignará un puntaje. El puntaje total del cliente es la suma de todos estos puntajes individuales.
 
@@ -88,7 +88,7 @@ El nivel de endeudamiento es un número decimal que indica la relación entre el
 Posibles valores:
 
 - Indicador mayor o igual a 2, tiene que destinar 2 o más meses para saldar sus deudas. En este caso se le asigna 0 puntos.
-- Indicador es menor o igual a 1, tiene que destinar menos de un mes de su salario para saldar sus deudas. En este caso se le asigna el puntaje completo del indicador.
+- Indicador menor o igual a 1, tiene que destinar menos de un mes de su salario para saldar sus deudas. En este caso se le asigna el puntaje completo del indicador.
 - Indicador entre 1 y 2, se calcula el puntaje `(1 - indicador) * puntaje`
 
 #### **Indicador de nivel de ahorros reales**
@@ -123,7 +123,7 @@ El modelo utilizado es una combinación lineal entre los indicadores y las tabla
 
 # Acceso al sistema publicado
 
-Ruta de acceso al servicio conectado a base de datos que emular ambiente productivo.
+Ruta de acceso al servicio conectado a base de datos que emula ambiente productivo.
 
 <https://lidz-scoring-ai7l5wdfta-tl.a.run.app>
 
