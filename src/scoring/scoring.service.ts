@@ -28,13 +28,13 @@ export class ScoringService {
    *
    * @param clientData set of data
    * @param cost purchase amount
-   * @param downPaymentPercentaje down payment percenteje [0-100]
+   * @param downPaymentPercentage down payment percenteje [0-100]
    * @returns data vector
    */
   createVector(
     clientData: ClientToScoreView,
     cost: number,
-    downPaymentPercentaje: number,
+    downPaymentPercentage: number,
   ): ClientScoringVectorDTO {
     //The interest of the client, more messages in the last month, more interest. 0 messages, 0 interes
     let interest =
@@ -42,7 +42,7 @@ export class ScoringService {
         ? 0
         : clientData.lastMessages / clientData.totalMessages;
 
-    let downPayment = (cost * downPaymentPercentaje) / 100;
+    let downPayment = (cost * downPaymentPercentage) / 100;
 
     // Purchase capacity, the relation of savings and down payment.
     let purshaseCapacity = clientData.savings / downPayment;
@@ -52,7 +52,9 @@ export class ScoringService {
 
     // Montly payment capacity relative to the salary
     let monthlyPercentegeSalary =
-      clientData.salary == 0 ? Number.POSITIVE_INFINITY : mortage / clientData.salary;
+      clientData.salary == 0
+        ? Number.POSITIVE_INFINITY
+        : mortage / clientData.salary;
 
     // Amount of months the client must pay to eliminate the debts. 0 Salary, Infinity months.
     let monthOfDebts =
@@ -73,39 +75,67 @@ export class ScoringService {
     };
   }
 
+  /**
+   *
+   * @param clientData
+   * @param cost
+   * @param downPaymentPercentage
+   * @returns
+   */
   createFactors(
     clientData: ClientToScoreView,
     cost: number,
-    downPaymentPercentaje: number,
+    downPaymentPercentage: number,
   ): VectorFactor {
     return vectorFactor;
   }
 
+  /**
+   * Convert the amount of money, for example the cost of the real state, to the type of money used to calculate the score. Ex: Uf to CLP
+   * @param cost
+   * @returns
+   */
   convertCost(cost: number): number {
+    // 1 UF equal to 38000 CLP
     return cost * 38000;
   }
 
+  /**
+   * Calculate the client scoring.
+   *
+   * @param id client id
+   * @param cost Cost of the real state
+   * @param downPaymentPercentage Down payment percentage
+   * @returns Scoring
+   */
   async calculate(
     id: number,
     cost = 3000,
-    downPaymentPercentaje = 20,
+    downPaymentPercentage = 20,
   ): Promise<{ scoring: number }> {
+    // Retrieve client report data
     let dto = await this.clientToScoreViewRepository.findOne({
       where: { id: id },
     });
+    // Validate user existence
     if (dto == null) {
       throw new NotFoundException(`Client "${id}" not found`);
     }
 
+    //Convert cost
     let costNormalized = this.convertCost(cost);
 
-    let vector = this.createVector(dto, costNormalized, downPaymentPercentaje);
+    //Calculate client vector values
+    let vector = this.createVector(dto, costNormalized, downPaymentPercentage);
+
+    //Retrieve calculating factors
     let factors = this.createFactors(
       dto,
       costNormalized,
-      downPaymentPercentaje,
+      downPaymentPercentage,
     );
 
+    // Calculate scoring
     let scoring =
       factors.interest(vector.interest) +
       factors.purshaseCapacity(vector.purshaseCapacity) +
@@ -113,6 +143,7 @@ export class ScoringService {
       factors.monthOfDebts(vector.monthOfDebts) +
       factors.realSavings(vector.realSavings);
 
+    // Return scoring
     return {
       scoring,
     };
